@@ -48,7 +48,7 @@ def multiple_ints(first_value: int, second_value: int) -> int:
     Returns:
         Product of elements
     """
-    if isinstance(first_value, int) and isinstance(second_value, int):
+    if not isinstance(first_value, int) and isinstance(second_value, int):
         raise ("TypeError")
     return first_value * second_value
 
@@ -106,9 +106,7 @@ def is_word_in_text(word: str, text: str) -> bool:
         >>> False
 
     """
-    a_bool = 'word' in text
-
-    return a_bool
+    return word in text
 
 
 def some_loop_exercise() -> list:
@@ -139,7 +137,7 @@ def alphabet() -> dict:
         >>> {"a": 1, "b": 2 ...}
     """
     import string
-    alphabet = dict(zip(string.ascii_uppercase, range(1, 27)))
+    alphabet = dict(zip(range(1, 27), string.ascii_lowercase))
 
     return alphabet
 
