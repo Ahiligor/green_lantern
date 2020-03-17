@@ -80,7 +80,14 @@ def multiple_ints_with_conversion(first_value: Any, second_value: Any) -> int:
             print("Not valid input data")
         >>> "Not valid input data"
     """
-    pass
+    try:
+        first_value = int(first_value)
+        second_value = int(second_value)
+
+        return first_value * second_value
+
+    except:
+        raise ValueError
 
 
 def is_word_in_text(word: str, text: str) -> bool:
@@ -99,14 +106,16 @@ def is_word_in_text(word: str, text: str) -> bool:
         >>> False
 
     """
-    pass
+    a_bool = 'word' in text
+
+    return a_bool
 
 
 def some_loop_exercise() -> list:
     """
     Use loop to create list that contain int values from 0 to 12 except 6 and 7
     """
-    pass
+    return [l for l in range(0, 13) if l not in [6, 7]]
 
 
 def remove_from_list_all_negative_numbers(data: List[int]) -> list:
@@ -118,10 +127,10 @@ def remove_from_list_all_negative_numbers(data: List[int]) -> list:
         remove_from_list_all_negative_numbers([1, 5, -7, 8, -1])
         >>> [1, 5, 8]
     """
-    pass
+    return [num for num in data if num >= 0]
 
 
-def alphabet() -> dict:
+def alphabet() -> None:
     """
     Create dict which keys are alphabetic characters. And values their number in alphabet
     Notes You could see an implementaion of this one in test, but create another one
@@ -129,7 +138,10 @@ def alphabet() -> dict:
         alphabet()
         >>> {"a": 1, "b": 2 ...}
     """
-    pass
+    import string
+    alphabet = dict(zip(string.ascii_uppercase, range(1, 27)))
+
+    return alphabet
 
 
 def simple_sort(data: List[int]) -> List[list]:
@@ -139,4 +151,10 @@ def simple_sort(data: List[int]) -> List[list]:
         simple_sort([2, 9, 6, 7, 3, 2, 1])
         >>> [1, 2, 2, 3, 6, 7, 9]
     """
-    pass
+    List = []
+
+    while data:
+        List.append(min(data))
+        data.remove(min(data))
+
+    return List
