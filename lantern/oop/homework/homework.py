@@ -1,15 +1,15 @@
 class Cat:
     """
-    Write Class Cat which will receive age from user
-    * Add to class average_speed variable which will get it's values
-      from private method _set_average_speed()
+    Write Class Cat which will receive age from user ✔
+    * Add to class average_speed variable which will get it's values ✔
+      from private method _set_average_speed() ✔
 
-    * Add to class saturation_level variable with value 50
+    * Add to class saturation_level variable with value 50 ✔
 
-    * Implement private methods _increase_saturation_level and _reduce_saturation_level
-      that will receive value and add/subtract from saturation_level this value
-      if saturation_level is less than 0, return 0
-      if saturation_level is grosser than 100, return 100
+    * Implement private methods _increase_saturation_level and _reduce_saturation_level ✔
+      that will receive value and add/subtract from saturation_level this value ✔
+      if saturation_level is less than 0, return 0 ✔
+      if saturation_level is grosser than 100, return 100 ✔
 
     * Implement method eat which will receive from user product value
       if product eq fodder use _increase_saturation_level with value eq 10
@@ -39,16 +39,18 @@ class Cat:
     """
 
     def __init__(self, age):
-        pass
+        self.age = age
+        self.average_speed = self._set_average_speed()
+        self.saturation_level = 50
 
     def eat(self, product):
         pass
 
     def _reduce_saturation_level(self, value):
-        pass
+        return 0 if self.saturation_level - value <= 0 else self.saturation_level - value
 
     def _increase_saturation_level(self, value):
-        pass
+        return 100 if self.saturation_level + value >= 100 else self.saturation_level + value
 
     def _set_average_speed(self):
         pass
