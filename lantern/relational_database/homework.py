@@ -32,7 +32,7 @@ def task_2_list_all_customers(cur) -> list:
     Returns: 91 records
 
     """
-    pass
+    GET
 
 
 def task_3_list_customers_in_germany(cur) -> list:

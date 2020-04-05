@@ -39,7 +39,7 @@ sudo apt-get install python3.7-dev
 ```
 
 ## psql
-If you are logged in postgress shell you will seee
+If you are logged in postgres shell you will see
 ```
 $ psql -h localhost -U cursor -d cursor_db -p 5432
 Password for user cursor:
