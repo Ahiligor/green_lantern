@@ -10,6 +10,7 @@ class FakeStorage:
     def users(self):
         return self._users
 
+
 class FakeUsers:
     def __init__(self):
         self._users = {}
