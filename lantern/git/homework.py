@@ -38,16 +38,18 @@ def multiple_ints(first_value: int, second_value: int) -> int:
     """
     Should calculate product of all args.
     if first_value or second_value is not int should raise TypeError
+
     Raises:
         TypeError
+
     Params:
         first_value: value for multiply
         second_value
     Returns:
         Product of elements
     """
-    if not isinstance(first_value, int) or not isinstance(second_value, int):
-        raise TypeError("Input data must be integer")
+    if not isinstance(first_value, int) and isinstance(second_value, int):
+        raise ("TypeError")
     return first_value * second_value
 
 
@@ -55,12 +57,16 @@ def multiple_ints_with_conversion(first_value: Any, second_value: Any) -> int:
     """
     If possible to convert arguments to int value - convert and multiply them.
     If it is impossible raise ValueError
+
     Args:
         first_value: number for multiply
         second_value: number for multiply
+
     Raises:
         ValueError
+
     Returns: multiple of two numbers.
+
     Examples:
         multiple_ints_with_conversion(6, 6)
         >>> 36
@@ -77,23 +83,28 @@ def multiple_ints_with_conversion(first_value: Any, second_value: Any) -> int:
     try:
         first_value = int(first_value)
         second_value = int(second_value)
+
         return first_value * second_value
-    except (ValueError, TypeError):
-        raise ValueError("Not valid input data")
+
+    except:
+        raise ValueError
 
 
 def is_word_in_text(word: str, text: str) -> bool:
     """
     If text contain word return True
     In another case return False.
+
     Args:
         word: Searchable substring
         text: Text for search
+
     Examples:
         is_word_in_text("Hello", "Hello word")
         >>> True
         is_word_in_text("Glad", "Nice to meet you ")
         >>> False
+
     """
     return word in text
 
@@ -102,7 +113,7 @@ def some_loop_exercise() -> list:
     """
     Use loop to create list that contain int values from 0 to 12 except 6 and 7
     """
-    return [i for i in range(0, 13) if i != 6 and i != 7]
+    return [l for l in range(0, 13) if l not in [6, 7]]
 
 
 def remove_from_list_all_negative_numbers(data: List[int]) -> list:
@@ -114,7 +125,7 @@ def remove_from_list_all_negative_numbers(data: List[int]) -> list:
         remove_from_list_all_negative_numbers([1, 5, -7, 8, -1])
         >>> [1, 5, 8]
     """
-    return [i for i in data if i > 0]
+    return [num for num in data if num >= 0]
 
 
 def alphabet() -> dict:
@@ -125,8 +136,11 @@ def alphabet() -> dict:
         alphabet()
         >>> {"a": 1, "b": 2 ...}
     """
-    from string import ascii_lowercase
-    return dict(enumerate(ascii_lowercase, start=1))
+    import string
+    alphabet = dict(zip(range(1, 27), string.ascii_lowercase))
+
+    return alphabet
+
 
 def simple_sort(data: List[int]) -> List[list]:
     """
@@ -135,14 +149,10 @@ def simple_sort(data: List[int]) -> List[list]:
         simple_sort([2, 9, 6, 7, 3, 2, 1])
         >>> [1, 2, 2, 3, 6, 7, 9]
     """
-    sorted_list = []
-    new_data = data.copy()
-    while new_data:
-        minimum = new_data[0]
-        for i in new_data:
-            if i < minimum:
-                minimum = i
-        sorted_list.append(minimum)
-        new_data.remove(minimum)
+    List = []
 
-    return sorted_list
+    while data:
+        List.append(min(data))
+        data.remove(min(data))
+
+    return List
