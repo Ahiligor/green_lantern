@@ -1,43 +1,30 @@
-from flask import Flask, jsonify, request
-
 import inject
+from flask import Flask
+from flask_restful import Api
+
+from errors import NoSuchUserError, my_error_handler, NoSuchStoreError
+from fake_storage import FakeStorage
+from routes import users_bl, goods_bl
+from routes.stores import Store
 
 
-class NoSuchUserError(Exception):
-    def __init__(self, user_id):
-        self.message = f'No such user_id {user_id}'
+def configure(binder):
+    db = FakeStorage()
+    binder.bind('DB', db)
 
 
-app = Flask(__name__)
+def make_app():
+    # configure our database
+    inject.clear_and_configure(configure)
 
+    app = Flask(__name__)
+    # API
+    api = Api(app)
+    api.add_resource(Store, "/store", "/store/<int:store_id>")
+    # register blueprints and error handlers
+    app.register_blueprint(users_bl)
+    app.register_blueprint(goods_bl)
 
-@app.errorhandler(NoSuchUserError)
-def my_error_handler(e):
-        return jsonify({'error': e.message}), 404
-
-
-@app.route('/users', methods=['POST'])
-def create_user():
-    db = inject.instance('DB')
-    user_id = db.users.add(request.json)
-    return jsonify({'user_id': user_id}), 201
-
-
-@app.route('/users/<int:user_id>')
-def get_user(user_id):
-    db = inject.instance('DB')
-    user = db.users.get_user_by_id(user_id)
-    return jsonify(user)
-
-
-@app.route('/goods', methods=['POST'])
-def create_goods():
-    db = inject.instance('DB')
-    number_of_created_goods = db.goods.add_many(request.json)
-    return jsonify({'number of items created': number_of_created_goods}), 201
-
-
-@app.route('/goods')
-def get_goods():
-    db = inject.instance('DB')
-    return jsonify(db.goods.get_all())
+    app.register_error_handler(NoSuchUserError, my_error_handler)
+    app.register_error_handler(NoSuchStoreError, my_error_handler)
+    return app

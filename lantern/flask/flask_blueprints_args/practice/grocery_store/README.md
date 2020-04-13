@@ -1,10 +1,6 @@
-### Plan of work
 
+### How to run tests
 
-# blueprints 
-
-Refactor Users to use blueprints 
-
-# API Resource
-
-Refactor your app to use flask_api and resource for 
+```.env
+python -m pytest test_store.py
+```

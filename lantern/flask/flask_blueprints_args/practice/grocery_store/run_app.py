@@ -1,15 +1,7 @@
-from store_app import app
-from fake_storage import FakeStorage
 import inject
 
-
-def configure(binder):
-    db = FakeStorage()
-    binder.bind('DB', db)
-
-
-inject.clear_and_configure(configure)
-
+from store_app import make_app
 
 if __name__ == '__main__':
-    app.run(port=8080)
+    app = make_app()
+    app.run(port=8080, debug=True)

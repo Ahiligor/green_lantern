@@ -1,6 +1,6 @@
 from itertools import count
 
-from grocery_store.store_app import NoSuchUserError
+from errors import NoSuchUserError, NoSuchStoreError
 
 
 class Repository:
@@ -18,6 +18,7 @@ class FakeStorage:
     def __init__(self):
         self._users = FakeUsers()
         self._goods = FakeGoods()
+        self._stores = FakeStores()
 
     @property
     def users(self):
@@ -26,6 +27,10 @@ class FakeStorage:
     @property
     def goods(self):
         return self._goods
+
+    @property
+    def stores(self):
+        return self._stores
 
 
 class FakeUsers(Repository):
@@ -36,9 +41,9 @@ class FakeUsers(Repository):
             raise NoSuchUserError(user_id)
 
     def update_user_by_id(self, user_id, user):
-        try:
+        if user_id in self._db:
             self._db[user_id] = user
-        except KeyError:
+        else:
             raise NoSuchUserError(user_id)
 
 
@@ -52,3 +57,18 @@ class FakeGoods(Repository):
         return [
             {**item, 'id': item_id} for item_id, item in self._db.items()
         ]
+
+
+class FakeStores(Repository):
+
+    def get_store_by_id(self, store_id):
+        try:
+            return self._db[store_id]
+        except KeyError:
+            raise NoSuchStoreError(store_id)
+
+    def update_store_by_id(self, store_id, store):
+        if store_id in self._db:
+            self._db[store_id] = store
+        else:
+            raise NoSuchStoreError(store_id)
