@@ -67,6 +67,11 @@ class FakeStores(Repository):
         except KeyError:
             raise NoSuchStoreError(store_id)
 
+    def get_store_by_name(self,name):
+        for store_id, store_data in self._db.items():
+            if name == store_data["name"]:
+                return store_data
+
     def update_store_by_id(self, store_id, store):
         if store_id in self._db:
             self._db[store_id] = store
