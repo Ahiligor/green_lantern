@@ -98,3 +98,4 @@ def update_store(store_id):
     db = inject.instance('DB')
     db.stores.update_store_by_id(store_id, request.json)
     return jsonify({'status': 'success'})
+
