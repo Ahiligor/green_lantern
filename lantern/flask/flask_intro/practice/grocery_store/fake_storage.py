@@ -59,7 +59,6 @@ class FakeGoods:
 
     def get_goods(self):
         response = []
-        # import pdb;pdb.set_trace()
         for key, values in self._goods.items():
             response.append({"id": key, **values})
         return response
